@@ -32,6 +32,8 @@ public:
 
     Matrix get_inverse(const Matrix& M); // get inverse matrix for M
 
+    float det(const Matrix& M); // get determinant of matrix
+
     //overload operators
 
     Matrix operator+ (const Matrix& M);
