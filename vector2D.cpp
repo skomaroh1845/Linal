@@ -1,4 +1,5 @@
 #include "vector2D.hpp"
+#include <cmath>
 
 using namespace std;
 
@@ -7,26 +8,42 @@ Vector2D::Vector2D() {
     this->y = 0;
 };
 
-Vector2D::Vector2D(int x, int y) {
+Vector2D::Vector2D(float x, float y) {
     this->x = x;
     this->y = y;
 };
 
 Vector2D::~Vector2D() {};
 
-int Vector2D::getX() const {
+float Vector2D::getX() const {
     return this->x;
 };
 
-int Vector2D::getY() const {
+float Vector2D::getY() const {
     return this->y;
 };
 
-void Vector2D::setX(int x) {
+void Vector2D::setX(float x) {
     this->x = x;
 };
 
-void Vector2D::setY(int y) {
+void Vector2D::setY(float y) {
+    this->y = y;
+};
+
+void Vector2D::rotate_R(float angle) {
+    angle = angle * (M_PI / 180.0);
+    double x = this->x * cos(angle) + this->y * sin(angle);
+    double y = -this->x * sin(angle) + this->y * cos(angle);
+    this->x = x;
+    this->y = y;
+};
+
+void Vector2D::rotate_L(float angle) {
+    angle = angle * (M_PI / 180.0);
+    double x = this->x * cos(angle) - this->y * sin(angle);
+    double y = this->x * sin(angle) + this->y * cos(angle);
+    this->x = x;
     this->y = y;
 };
 
@@ -54,14 +71,18 @@ Vector2D Vector2D::operator- (const Vector2D& v2) const {
     return v3;
 };
 
-Vector2D Vector2D::operator* (const int a) const {
+Vector2D Vector2D::operator* (const float a) const {
     Vector2D v3;
     v3.setX(this->x * a);
     v3.setY(this->y * a);
     return v3;
 };
 
-Vector2D operator* (int a, const Vector2D& v) {
+float Vector2D::operator*(const Vector2D& a) const {
+    return ((this->x * a.getX()) + (this->y * a.getY()));
+}
+
+Vector2D operator* (float a, const Vector2D& v) {
     Vector2D v3;
     v3.setX(a * v.getX());
     v3.setY(a * v.getY());
