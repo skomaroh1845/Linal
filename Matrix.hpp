@@ -30,9 +30,11 @@ public:
 
     void resize_m(int new_i, int new_j); // set new size if matrix
 
-    Matrix get_inverse(const Matrix& M); // get inverse matrix for M
+    Matrix get_inverse(const Matrix& M); // get inverse matrix
 
-    float det(const Matrix& M); // get determinant of matrix
+    float det(const Matrix& M); // get matrix determinant; !!!ATTENTION!!! done through recursion => very slowly
+
+    Matrix minor_ij(int i2, int j2); // minor for element(i,j)
 
     //overload operators
 

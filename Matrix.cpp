@@ -107,9 +107,44 @@ void Matrix::resize_m(int new_i, int new_j) {
         }
 }; // set new size if matrix
 
+Matrix Matrix::minor_ij(int i2, int j2) {
+    float **Arr;
+    Arr = new float* [this->m - 1];
+    for (int i = 0; i < this->m - 1; i++)
+        Arr[i] = new float [this->n - 1];
+
+    int i1 = 0,j1 = 0;
+    for (int i = 0; i < this->m; i++) {
+        j1 = 0;
+        if (i != i2) i1++;
+        for (int j = 0; j < this->n; j++) {
+            if (i != i2 && j != j2) {
+                    Arr[i1][j1] = this->arr[i][j];
+                    j1++;
+            }
+        }
+    }
+
+    Matrix(this->m - 1,this->n - 1, Arr);
+    for (int i = 0; i < this->m - 1; i++)
+        delete[] Arr[i];
+    delete[] Arr;
+    return M;
+}
+
 Matrix Matrix::get_inverse(const Matrix& M); // get inverse matrix for M
 
-float Matrix::det(const Matrix& M); // determinant
+float Matrix::det(const Matrix& M) {
+    if (this->m == this->n) {
+        if (this->m = 1) return this->arr[0][0];
+        float detM = 0;
+        for (int j = 0; j < this->n; i++) {
+            detM += this->arr[0][j] * det(this->minor_ij(0, j));
+        }
+        return detM;
+    }
+    return 0;
+}; // determinant
 
     //overload operators
 
