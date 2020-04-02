@@ -1,15 +1,15 @@
-#ifndef Matrix
-#define Matrix
+#ifndef Matrix_HPP
+#define Matrix_HPP
 
 #include <iostream>
 
+using namespace std;
+
 class Matrix {
 private:
-    int m,n // m - amount of strings, n - amount of columns
+    int m,n; // m - amount of strings, n - amount of columns
     float **arr;
 public:
-    Matrix(); // init empty matrix object
-
     Matrix(int m, int n); // init null matrix m*n
 
     Matrix(int n); // init unit matrix
@@ -30,21 +30,21 @@ public:
 
     void resize_m(int new_i, int new_j); // set new size if matrix
 
-    Matrix get_inverse(const Matrix& M); // get inverse matrix
+    Matrix get_inverse() const; // get inverse matrix
 
-    float det(const Matrix& M); // get matrix determinant; !!!ATTENTION!!! done through recursion => very slowly
+    float det() const; // get matrix determinant;
 
-    Matrix minor_ij(int i2, int j2); // minor for element(i,j)
+    Matrix minor_ij(int i2, int j2) const; // minor for element(i,j)
 
     //overload operators
 
     Matrix operator+ (const Matrix& M);
 
-    Matrix operator+= (const Matrix& M);
+    void operator+= (const Matrix& M);
 
     Matrix operator- (const Matrix& M);
 
-    Matrix operator-= (const Matrix& M);
+    void operator-= (const Matrix& M);
 
     void operator= (const Matrix& M);
 
@@ -52,7 +52,7 @@ public:
 
     Matrix operator* (float a);
 
-    Matrix operator*= (float a);
+    void operator*= (float a);
 
     bool operator== (const Matrix& M);
 
@@ -67,4 +67,4 @@ ostream& operator << (ostream& o, const Matrix& M);
 
 istream& operator >> (istream& i, Matrix& M);
 
-#endif // Matrix
+#endif // Matrix_H
