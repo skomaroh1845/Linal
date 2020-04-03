@@ -1,6 +1,7 @@
 #include "Matrix.hpp"
 
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -82,7 +83,10 @@ void Matrix::resize_m(int new_i, int new_j) {
         else k = new_i;
     if (new_j > this->n) l = this->n;
         else l = new_j;
-    float Arr[k][l];
+    float** Arr;
+    Arr = new float* [k];
+    for (int i = 0; i < k; i++)
+        Arr[i] = new float[l];
     for (int i = 0; i < k; i++)
         for (int j = 0; j < l; j++) {
              Arr[i][j] = this->arr[i][j];
@@ -104,8 +108,12 @@ void Matrix::resize_m(int new_i, int new_j) {
             if (i >= k || j >= l) this->arr[i][j] = 0;
             else this->arr[i][j] = Arr[i][j];
         }
+    for (int i = 0; i < k; i++)
+        delete[] Arr[i];
+    delete[] Arr;
     this->m = new_i;
     this->n = new_j;
+    
 }; // set new size if matrix
 
 Matrix Matrix::minor_ij(int i2, int j2) const {
@@ -329,9 +337,9 @@ Matrix operator* (float a, const Matrix& M) {
 ostream& operator << (ostream& o, const Matrix& M) {
     for (int i = 0; i < M.getStrSize(); i++) {
         for (int j = 0; j < M.getColSize(); j++) {
-            o << M.getEl(i, j) << " ";
+            o << setw(4) << M.getEl(i, j) << " ";
         }
-        o << endl;
+        o << endl << endl;
     }
     return o;
 };
