@@ -158,6 +158,7 @@ Matrix Matrix::get_inverse() const {
 
 float Matrix::det() const{
     if (this->m == this->n) {
+        if (this->m == 1) return this->arr[0][0];
         if (this->m == 2) return (this->arr[0][0]*this->arr[1][1] - this->arr[1][0]*this->arr[0][1]);
         float detM = 0;
         for (int j = 0; j < this->n; j++) {
